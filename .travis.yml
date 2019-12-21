@@ -1,0 +1,23 @@
+language: python
+
+python:
+  - "3.5"
+
+install:
+  - pip install -r requirements.txt
+  - pip install psycopg2 --quiet
+
+services: postgresql
+
+before_script:
+  - psql -c 'create database dbname;' -U postgres
+
+
+script:
+  - cd project_folders
+  - python manage.py makemigrations
+  - python manage.py migrate
+  - python manage.py test
+
+env:
+  - SECRET_KEY="secret_is_out" DB_ENGINE="django.db.backends.postgresql" DB_NAME="dbname" DB_USER="postgres" DB_PASSWORD="" DB_HOST="localhost" ALLOWED_HOSTS="0.0.0.0, 127.0.0.1" TIME_ZONE="Asia/Bishkek" INTERVIEW_START_TIME="09:00" INTERVIEW_END_TIME="18:45" INTERVIEW_DURATION_MINUTES="15"

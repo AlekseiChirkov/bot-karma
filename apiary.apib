@@ -1,0 +1,230 @@
+FORMAT: 1A
+HOST: http://neobis.kg/
+
+# projecth 
+
+CRM for HR department
+
+## Selection [/hr/]
+
+
+
+### Application form [POST]
+
+This form accept information from applicants and push it to database.
+
++ Request (application/json, application/octet-stream)
+
+        {
+            
+            "name": "Иван", 
+            "surname": "Иванов", 
+            "email": "default@mail.ru",
+            "phone": "0555123456",
+            "university": 1,
+            "course": 2,
+            "department": 3,
+            "experience": 2,
+            "hobby": "Footbal, table tennis, sleep",
+            "reason": "Because it's so good",
+            "dob": "",
+            "tg_number": "",
+            "resume": null,
+            
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /hr/1/
+
+    + Body
+
+            {
+                "detail": "Successfully!",
+                "unique": "1sdf46a"
+            }
+            
+            
+## Registration [/hr/entry/]
+
+### Registration form [POST]
+
+This form accept unique id.
+
++ Request (application/json)
+
+        {
+            
+            "unique": "1sdf46a"
+            
+        }
+
++ Response 200 (application/json)
+
+        {
+            "detail": "Successfully!"
+        }
+
+## Timing to interview [/hr/interview/]
+
+### Time slots [GET]
+
+All timing to interview.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "date" : "2018-11-11",
+                "timeslot" : [
+                    {
+                        "id": 1,
+                        "time": "09:00",
+                        "type": 0
+                    },
+                    {
+                        "id": 2,
+                        "time": "09:15",
+                        "type": 1
+                    },
+                    {
+                        "id": 3,
+                        "time": "09:30",
+                        "type": 1
+                    },
+                    {
+                        "id": 4,
+                        "time": "09:45",
+                        "type": 0
+                    },
+                ]
+            },
+            {
+                "id": 2,
+                "date" : "2018-11-12",
+                "timeslot" : [
+                    {
+                        "id": 5,
+                        "time": "09:00",
+                        "type": 0
+                    },
+                    {
+                        "id": 6,
+                        "time": "09:15",
+                        "type": 1
+                    },
+                    {
+                        "id": 7,
+                        "time": "09:30",
+                        "type": 1
+                    },
+                    {
+                        "id": 8,
+                        "time": "09:45",
+                        "type": 0
+                    },
+                ]
+            }
+        ]
+        
+        
+### Time slot reservation [POST]
+
+Time slot reservation 
+
++ Request (application/json)
+
+        {
+            "id": 1,
+            "unique" : "1sdf46a", 
+            "date" : "2018-11-12",
+            "timeslot" : [
+                    {
+                        "time": "09:00",
+                        "type": 1
+                    }
+                ]
+            
+        }
+
+
+
++ Response 200 (application/json)
+
+        {
+            "detail" : "You have successfully registered for an interview"
+        }
+
+##  Universities [/universities/]
+
+### All universities [GET]
+
+All universities
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "name": "Кыргызский государственный технический университет",
+                "city": "Бишкек"
+            },
+            {
+                "id": 2,
+                "name": "Американский университет в Центральной Азии",
+                "city": "Бишкек"
+            },
+            {
+                "id": 3,
+                "name": "Кыргызско-Российский Славянский университет  им.Б.Ельцина",
+                "city": "Бишкек"
+            },
+            {
+                "id": 4,
+                "name": "Кыргызский государственный университет строительства, транспорта и архитектуры",
+                "city": "Бишкек"
+            },
+            {
+                "id": 5,
+                "name": "Международный университет в Центральной Азии",
+                "city": "Токмок"
+            }
+        ]
+        
+##  Departments [/departments/]
+
+### All Departments [GET]
+
+All departments
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "name": "Backend"
+            },
+            {
+                "id": 2,
+                "name": "Frontend"
+            },
+            {
+                "id": 3,
+                "name": "Gamedev"
+            },
+            {
+                "id": 4,
+                "name": "IOS"
+            },
+            {
+                "id": 5,
+                "name": "Android"
+            },
+            {
+                "id": 6,
+                "name": "ProgrammManager"
+            }
+        ]
